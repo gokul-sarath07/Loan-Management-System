@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Loan Management System</title>
+    <!-- Setting Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+
+
+    <div class="body_container">
+      <!-- The navbar -->
+      <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <span class="navbar-brand mb-0 h1">Loan Management System</span>
+          <a class="btn btn-danger" href="/logout">Logout</a>
+        </div>
+      </nav>
+
+      <!-- The sidebar -->
+      <div class="sidebar">
+        <a class="active" href="/home">Home</a>
+        <a href="/home/loans">Loans</a>
+        <a href="/home/payments">Payments</a>
+        <a href="/home/borrowers">Borrowers</a>
+        <a href="/home/loan_plans">Loan Plans</a>
+        <a href="/home/loan_types">Loan Types</a>
+        <a href="/home/users">Users</a>
+      </div>
+
+      <!-- Page content -->
+      <div class="content">
+        {% block content %}
+          <div class="home_info">
+            <h2 class="heading">Welcome {{ current_user.first_name }}</h2>
+            <div class="info_containers">
+              <div class="info_block">
+                <h2>Payments Today</h2>
+              </div>
+              <div class="info_block">
+                <h2>Borrowers</h2>
+              </div>
+              <div class="info_block">
+                <h2>Active Loans</h2>
+              </div>
+              <div class="info_block">
+                <h2>Total Receivable</h2>
+              </div>
+            </div>
+          </div>
+        {% endblock %}
+      </div>
+    </div>
+
+    {% block script_link %} {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <div class="users_info">
+    <div class="heading_and_button">
+      <h2>Users List</h2>
+      <button type="button" name="button">Add New User</button>
+    </div>
+
+    <div class="users_table_div">
+      <table class="users_table">
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Date Joined</th>
+          <th>Action</th>
+        </tr>
+        {% for member in members %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ member.first_name + ' ' + member.last_name }}</td>
+            <td>{{ member._id }}</td>
+            <td>{{ member.added_date_time }}</td>
+            <td>{{ none }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+{% endblock %}

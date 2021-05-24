@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <div class="borrowers_info">
+    <div class="heading_and_button">
+      <h2>Borrowers List</h2>
+      <button type="button" name="button">New Borrower</button>
+    </div>
+
+    <div class="borrowers_table_div">
+      <table class="borrowers_table">
+        <tr>
+          <th>#</th>
+          <th>Borrower</th>
+          <th>Current Loan</th>
+          <th>Next Payment Schedule</th>
+          <th>Action</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+{% endblock %}

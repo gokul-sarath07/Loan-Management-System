@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <div class="loan_info">
+    <div class="heading_and_button">
+      <h2>Loans List</h2>
+      <button type="button" name="button">Create New Application</button>
+    </div>
+
+    <div class="loans_table_div">
+      <table class="loans_table">
+        <tr>
+          <th>#</th>
+          <th>Borrower</th>
+          <th>Loan Details</th>
+          <th>Next Payment Details</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+{% endblock %}

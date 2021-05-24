@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <div class="loan_types_info">
+    <div class="heading_and_button">
+      <h2>Loan Types List</h2>
+      <button class="add_loan_type" type="button" name="button">Add Loan Type</button>
+    </div>
+
+    <div class="loan_types_table_div">
+      <table class="loan_types_table">
+        <tr>
+          <th>#</th>
+          <th>Loan Type</th>
+          <th>Action</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="loan_types_form_container">
+    <div class="loan_types_form_div">
+      <div class="loan_types_form_heading">
+        <h2>Add Loan Type</h2>
+      </div>
+
+      <div class="loan_types_form_inner_div">
+        <form class="loan_types_form">
+
+          <div class="loan_types_div">
+            <label for="loan_types_input">Type</label>
+            <input id="loan_types_input" type="text">
+          </div>
+
+          <div class="loan_types_description_input_div">
+            <label for="loan_types_description_input">Description</label>
+            <input id="loan_types_description_input" type="text">
+          </div>
+
+        </form>
+      </div>
+
+      <div class="loan_types_form_buttons">
+        <button type="submit" name="button">Save</button>
+        <button class="loan_types_form_cancel_btn" type="button" name="button">Cancel</button>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script_link %}
+  <script type="text/javascript" src="{{ url_for('static', filename='loan_types_page.js') }}"></script>
+{% endblock %}

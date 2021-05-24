@@ -1,0 +1,273 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.body_container {
+  width: 100%;
+  height: 100vh;
+}
+
+
+/* The side navigation menu */
+.sidebar {
+  width: 200px;
+  height: 100vh;
+  background-color: #f1f1f1;
+  position: fixed;
+  overflow: auto;
+}
+
+/* Sidebar links */
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+  letter-spacing: 1px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Active/current link */
+.sidebar a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+/* Links on mouse-over */
+.sidebar a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
+/* On screens that are less than 700px wide, make the sidebar into a topbar */
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}
+
+/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
+div.content {
+  margin-left: 200px;
+  padding: 1px 16px;
+  width: calc(100% - 200px);
+  height: 569px;
+  display: flex;
+  justify-content: center;
+  background-color: #D7D6D7;
+  position: relative;
+}
+
+.home_info {
+  background-color: #f1f1f1;
+  width: 1000px;
+  height: 300px;
+  margin: 55px 65px 55px;
+  border-radius: 5px;
+}
+
+.heading {
+  padding: 20px 0 0 20px;
+}
+
+.info_containers {
+  width: 100%;
+  background-color: #f1f1f1;
+  display: flex;
+  margin-top: 70px;
+  justify-content: space-around;
+}
+
+.info_block {
+  width: 215px;
+  height: 150px;
+  color: #fff;
+  padding-top: 35px;
+  padding-left: 20px;
+  background-color: grey;
+  font-size: 13px;
+  border-radius: 5px;
+}
+
+.loan_info, .payment_info, .borrowers_info, .loan_plans_info, .loan_types_info, .users_info {
+  background-color: #fff;
+  width: 1200px;
+  height: 550px;
+  margin: 8px 0px 10px;
+  border-radius: 5px;
+}
+
+/* =========================== Loan Plans =========================== */
+
+.heading_and_button {
+  display: flex;
+  width: 100%;
+  height: 70px;
+  background-color: #31353E;
+  justify-content: space-between;
+  align-items: center;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.heading_and_button h2 {
+  margin-left: 20px;
+  letter-spacing: 1px;
+  color: #f1f1f1;
+}
+
+.heading_and_button button {
+  margin-right: 20px;
+  padding: 5px 5px;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.loans_table, .payment_table, .borrowers_table, .loan_plans_table, .loan_types_table, .users_table, th, td {
+  border: 1px solid #000000;
+  border-spacing: 0px;
+}
+
+.loans_table_div, .payment_table_div, .borrowers_table_div, .loan_plans_table_div, .loan_types_table_div, .users_table_div {
+  width: 100%;
+  height: calc(100% - 70px);
+  background-color: #f1f1f1;
+  padding: 40px 40px;
+  border-radius: 5px;
+  overflow: auto;
+}
+
+.loans_table th, .payment_table th, .borrowers_table th, .loan_plans_table th, .loan_types_table th, .users_table th {
+  padding: 20px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.loans_table tr, .payment_table tr, .borrowers_table tr, .loan_plans_table tr, .loan_types_table tr, .users_table tr{
+  height: 65px;
+}
+
+.loans_table, .payment_table, .borrowers_table, .loan_plans_table, .loan_types_table, .users_table {
+  width: 100%;
+}
+
+.loan_plans_form_container {
+  padding: 1px 16px;
+  width: calc(100% - 200px);
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0, 0.9);
+  visibility: hidden;
+  opacity: 0;
+}
+
+.loan_types_form_container {
+  padding: 1px 16px;
+  width: calc(100% - 200px);
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0, 0.9);
+  visibility: hidden;
+  opacity: 0;
+}
+
+.loan_plans_form_div, .loan_types_form_div {
+  width: 380px;
+  height: 450px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.loan_plans_form_heading, .loan_types_form_heading {
+  width: 100%;
+  height: 14%;
+  background-color: #31353E;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.loan_plans_form_heading h2, .loan_types_form_heading h2 {
+  padding-left: 15px;
+  letter-spacing: 1px;
+  color: #f1f1f1;
+}
+
+.loan_plans_form_inner_div, .loan_types_form_inner_div {
+  width: 100%;
+  height: calc(100% - 14% - 16%);
+  padding-top: 10px;
+}
+
+.loan_plans_form, .loan_types_form {
+  width: 80%;
+  height: 250px;
+  margin-left: 15px;
+  font-size: 20px;
+}
+
+.loan_plans_form div, .loan_types_form div {
+  margin-top: 30px;
+  display: flex;
+  font-size: 20px;
+  flex-direction: column;
+  letter-spacing: 1px;
+  align-items: flex-start;
+}
+
+.loan_plans_form div label, .loan_types_form div label {
+  padding-bottom: 5px;
+}
+
+.loan_plans_form div input, .loan_types_form div input {
+  width: 100%;
+  height: 28px;
+  border: 1px solid grey;
+  outline: none;
+  padding: 5px 5px 5px 5px;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.loan_plan_form_buttons, .loan_types_form_buttons {
+  width: 100%;
+  height: 16%;
+  background-color: #f1f1f1;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.loan_plan_form_buttons button, .loan_types_form_buttons button {
+  padding: 10px 20px;
+  font-size: 15px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid #31353E;
+}

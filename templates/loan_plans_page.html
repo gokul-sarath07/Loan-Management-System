@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <div class="loan_plans_info">
+    <div class="heading_and_button">
+      <h2>Loan Plans List</h2>
+      <button class="add_loan_plan" type="button" name="button">Add Loan Plan</button>
+    </div>
+
+    <div class="loan_plans_table_div">
+      <table class="loan_plans_table">
+        <tr>
+          <th>#</th>
+          <th>Plan</th>
+          <th>Action</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="loan_plans_form_container">
+    <div class="loan_plans_form_div">
+      <div class="loan_plans_form_heading">
+        <h2>Add Loan Plan</h2>
+      </div>
+
+      <div class="loan_plans_form_inner_div">
+        <form class="loan_plans_form">
+          <div class="loan_plan_input_div">
+            <label for="loan_plan_input">Plan (Months)</label>
+            <input id="loan_plan_input" type="text">
+          </div>
+
+          <div class="loan_plan_interest_input_div">
+            <label for="loan_plan_interest_input">Interest (%)</label>
+            <input id="loan_plan_interest_input" type="text">
+          </div>
+
+          <div class="loan_plan_monthly_over_due_penalty_input_div">
+            <label for="loan_plan_monthly_over_due_penalty_input">Monthly Over Due's Penalty (%)</label>
+            <input id="loan_plan_monthly_over_due_penalty_input" type="text">
+          </div>
+        </form>
+      </div>
+
+      <div class="loan_plan_form_buttons">
+        <button type="submit" name="button">Save</button>
+        <button class="loan_plan_form_cancel_btn" type="button" name="button">Cancel</button>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script_link %}
+  <script type="text/javascript" src="{{ url_for('static', filename='loan_plans_page.js') }}"></script>
+{% endblock %}

@@ -1,11 +1,24 @@
 {% extends "base.html" %}
 
+{% block css_link %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='users_page.css') }}">
+{% endblock %}
 
 {% block content %}
   <div class="users_info">
     <div class="heading_and_button">
       <h2>Users List</h2>
-      <button type="button" name="button">Add New User</button>
+      <div class="buttons_div">
+        <button class="add_button" type="button" name="add_button">
+          <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+        </button>
+        <button class="edit_button" type="button" name="edit_button">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        </button>
+        <button class="delete_button" type="button" name="delete_button">
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
+        </button>
+      </div>
     </div>
 
     <div class="users_table_div">
@@ -15,7 +28,6 @@
           <th>Name</th>
           <th>Email</th>
           <th>Date Joined</th>
-          <th>Action</th>
         </tr>
         {% for member in members %}
           <tr>
@@ -23,10 +35,103 @@
             <td>{{ member.first_name + ' ' + member.last_name }}</td>
             <td>{{ member._id }}</td>
             <td>{{ member.added_date_time }}</td>
-            <td>{{ none }}</td>
           </tr>
         {% endfor %}
       </table>
     </div>
   </div>
+
+  <div class="add_button_outter_form_div">
+    <div class="add_button_inner_form_div">
+      <div class="add_button_heading_div">
+        <h2>Add User</h2>
+      </div>
+      <form class="add_button_form" action="/home/users/" method="POST">
+        <div class="add_button_form_input_div">
+          <input name="first_name" type="text" placeholder="First Name" required>
+          <input name="last_name" type="text" placeholder="Last Name" required>
+          <input name="email" type="email" placeholder="Email" required>
+          <input name="password" type="password" placeholder="New Password" required>
+          <span>Give admin permissions: <input name="has_permission" type="checkbox"></span>
+        </div>
+        <div class="add_button_form_submit_btn_div">
+          <!-- <button class="users_form_save_btn" onclick="window.location.href='/home/users'" type="submit" name="button">Save</button> -->
+          <button class="btn btn-outline-success add_button_save_btn" type="submit" name="button">Save</button>
+          <button class="btn btn-outline-secondary add_button_cancel_btn" type="button" name="button">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="edit_button_outter_form_div">
+    <div class="edit_button_inner_email_form_div">
+      <div class="edit_button_heading_email_div">
+        <h2>Edit user with email</h2>
+      </div>
+      <form class="edit_button_email_form" action="/home/users/edit" method="POST">
+        <div class="edit_button_form_input_email_div">
+          <input type="email" name="edit_button_email_input" placeholder="Email Here" required>
+        </div>
+        <div class="edit_button_form_email_submit_btn_div">
+          <button class="btn btn-outline-info edit_button_email_continue_btn" type="submit" name="button">Continue</button>
+          <button class="btn btn-outline-secondary edit_button_email_cancel_btn" type="button" name="button">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <div class="delete_button_outter_form_div">
+    <div class="delete_button_inner_form_div">
+      <div class="delete_button_heading_div">
+        <h2>Delete user with email</h2>
+      </div>
+      <form class="delete_button_form" action="/delete-user" method="POST">
+        <div class="delete_button_form_input_div">
+          <input type="email" name="delete_button_email_input" placeholder="Email Here" required>
+        </div>
+        <div class="delete_button_form_submit_btn_div">
+          <button class="btn btn-outline-danger delete_button_delete_btn" type="submit" name="button">Delete</button>
+          <button class="btn btn-outline-secondary delete_button_cancel_btn" type="button" name="button">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+
+  // ============================ Add Button Scripts ============================
+    document.querySelector('.add_button').onclick = () => {
+      document.querySelector('.add_button_outter_form_div').style.cssText = "opacity: 1; visibility: visible";
+    }
+
+    document.querySelector('.add_button_cancel_btn', '.add_button_save_btn').onclick = () => {
+      document.querySelector('.add_button_outter_form_div').style.cssText = "opacity: 0; visibility: hidden";
+    }
+
+  // ============================ Delete Button Scripts ============================
+    document.querySelector('.delete_button').onclick = () => {
+      document.querySelector('.delete_button_outter_form_div').style.cssText = "opacity: 1; visibility: visible";
+    }
+
+    document.querySelector('.delete_button_cancel_btn', '.delete_button_delete_btn').onclick = () => {
+      document.querySelector('.delete_button_outter_form_div').style.cssText = "opacity: 0; visibility: hidden";
+    }
+
+  // ============================ Edit Button Scripts ============================
+    document.querySelector('.edit_button').onclick = () => {
+      document.querySelector('.edit_button_outter_form_div').style.cssText = "opacity: 1; visibility: visible";
+      document.querySelector('.edit_button_form_input_email_div input').value = '';
+    }
+
+    document.querySelector('.edit_button_email_cancel_btn').onclick = () => {
+      document.querySelector('.edit_button_outter_form_div').style.cssText = "opacity: 0; visibility: hidden";
+    }
+
+
+
+
+
+
+  </script>
 {% endblock %}

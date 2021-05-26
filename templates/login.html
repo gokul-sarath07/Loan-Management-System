@@ -2,16 +2,25 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Login</title>
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
   </head>
   <body>
     <div class="login_container">
-      <div class="form_div">
-        {{ message }}
+      <div class="login_form_div">
+        <div class="login_heading">
+          <h2>Login</h2>
+        </div>
+        <div class="login_message">
+          {{ message }}
+        </div>
         <form class="login_form" action="/" method="POST">
           <input type="email" name="email" placeholder="Email Here">
           <input type="password" name="password" placeholder="Password Here">
-          <button type="submit" name="button">Login</button>
+          <div class="login_submin_btn_div">
+            <button type="submit" name="button">Login</button>
+          </div>
         </form>
       </div>
     </div>

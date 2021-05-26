@@ -28,6 +28,17 @@ def get_user(email):
 def get_registered_users():
     return list(users_collection.find())
 
+def delete_user(email):
+    users_collection.delete_one({'_id': email})
+
+def update_user(first_name, last_name, email, password, has_permission=False):
+    password_hash = generate_password_hash(password)
+    added_date_time = datetime.now().strftime("%d-%b-%Y, %H:%M:%S")
+    users_collection.update_one({'_id': email}, {'$set': {'first_name': first_name.capitalize(),
+                                            'last_name': last_name.capitalize(), 'password': password_hash,
+                                            'added_date_time': added_date_time,
+                                            'has_permission': has_permission}})
+
 # save_user('admin', 'admin', 'admin@gmail.com', 'admin123', True)
 # save_user('agent', 'agent', 'agent@gmail.com', 'agent123', True)
 # email: admin@gmail.com

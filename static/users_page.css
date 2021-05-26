@@ -1,0 +1,402 @@
+:root {
+  --heading_color: #f1f1f1;
+  --heading_background_color: #31353E;
+  --buttons_background_color: #f1f1f1;
+  --input_bottom_border_color_not_focus: #000000;
+  --input_bottom_border_color_focus: #04AA6D;
+  --white: #ffffff;
+}
+
+.users_info {
+  background-color: var(--white);
+  width: 1200px;
+  height: 550px;
+  margin: 8px 0px 10px;
+  border-radius: 5px;
+}
+
+.heading_and_button {
+  display: flex;
+  width: 100%;
+  height: 70px;
+  background-color: var(--heading_background_color);
+  justify-content: space-between;
+  align-items: center;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.heading_and_button h2 {
+  margin-left: 20px;
+  letter-spacing: 1px;
+  color: var(--heading_color);
+}
+
+.heading_and_button button {
+  margin-right: 20px;
+  padding: 5px 5px;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.users_table, th, td {
+  border: 1px solid #000000;
+  border-spacing: 0px;
+}
+
+.users_table_div {
+  width: 100%;
+  height: calc(100% - 70px);
+  background-color: #f1f1f1;
+  padding: 40px 40px;
+  border-radius: 5px;
+  overflow: auto;
+}
+
+.users_table th {
+  padding: 20px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.users_table tr{
+  height: 65px;
+}
+
+.users_table {
+  width: 100%;
+}
+
+
+/* =============================== Users Buttons ================================= */
+
+.edit_button, .delete_button, .add_button {
+  width: 30px;
+  height: 30px;
+  outline: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add_button {
+  border: 1.5px solid #04AA6D;
+}
+
+.add_button i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #04AA6D;
+}
+
+.edit_button {
+  border: 1.5px solid #2D87EA;
+}
+
+.edit_button i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #2D87EA;
+}
+
+.delete_button {
+  border: 1.5px solid #DB474D;
+}
+
+.delete_button i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #DB474D;
+}
+
+/* =============================== Add User ================================= */
+
+.add_button_outter_form_div {
+  padding: 1px 16px;
+  width: calc(100% - 200px);
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0, 0.9);
+  visibility: hidden;
+  opacity: 0;
+}
+
+.add_button_inner_form_div {
+  width: 380px;
+  height: 450px;
+  background-color: var(--white);
+  border-radius: 10px;
+}
+
+.add_button_heading_div, .edit_button_heading_update_div {
+  width: 100%;
+  height: 14%;
+  background-color: var(--heading_background_color);
+  display: flex;
+  align-items: center;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.add_button_heading_div h2, .edit_button_heading_update_div h2 {
+  padding-left: 15px;
+  letter-spacing: 1px;
+  color: var(--heading_color);
+  text-transform: uppercase;
+  font-size: 25px;
+}
+
+.add_button_form, .edit_button_update_form {
+  width: 100%;
+  height: calc(100% - 14%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.add_button_form_input_div, .edit_button_form_input_update_div {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.add_button_form_input_div input:not(:last-child), .edit_button_form_input_update_div input:not(:last-child){
+  width: 80%;
+  height: 30px;
+  margin-bottom: 20px;
+  border: none;
+  outline: none;
+  padding-left: 5px;
+  letter-spacing: 1px;
+  border-bottom: 2px solid var(--input_bottom_border_color_not_focus);
+  color: #000;
+  font-size: 18px;
+  transition: border-bottom-color .4s;
+}
+
+.add_button_form_input_div input:not(:last-child):focus, .edit_button_form_input_update_div input:not(:last-child):focus {
+  border-bottom-color: var(--input_bottom_border_color_focus);
+}
+
+.add_button_form_input_div span, .edit_button_form_input_update_div span {
+  font-size: 18px;
+}
+
+.add_button_form_input_div span input, .edit_button_form_input_update_div span input {
+  position: relative;
+  top: 3px;
+  width: 15px;
+  height: 15px;
+}
+
+.add_button_form_submit_btn_div, .edit_button_form_update_submit_btn_div {
+  width: 100%;
+  height: calc(100% - 80%);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--buttons_background_color);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+/* =============================== Edit User ================================= */
+
+.edit_button_outter_form_div {
+  padding: 1px 16px;
+  width: calc(100% - 200px);
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0, 0.9);
+  visibility: hidden;
+  opacity: 0;
+}
+
+.edit_button_outter_update_form_div {
+  padding: 1px 16px;
+  width: calc(100% - 200px);
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0, 0.9);
+}
+
+.edit_button_inner_email_form_div {
+  position: absolute;
+  width: 400px;
+  height: 200px;
+  background-color: var(--white);
+  border-radius: 5%;
+}
+
+.edit_button_heading_email_div {
+  width: 100%;
+  height: 30%;
+  background-color: var(--heading_background_color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.edit_button_heading_email_div h2 {
+  color: var(--heading_color);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 25px;
+}
+
+.edit_button_email_form {
+  width: 100%;
+  height: calc(100% - 30%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit_button_form_input_email_div {
+  width: 100%;
+  height: calc(100% - 30%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit_button_form_input_email_div input {
+  width: 80%;
+  height: 30px;
+  border: none;
+  outline: none;
+  padding-left: 5px;
+  margin: 20px 0px;
+  letter-spacing: 1px;
+  border-bottom: 2px solid var(--input_bottom_border_color_not_focus);
+  color: #000;
+  font-size: 18px;
+  transition: border-bottom-color .4s;
+}
+
+.edit_button_form_input_email_div input:focus {
+  border-bottom-color: var(--input_bottom_border_color_focus);
+}
+
+.edit_button_form_email_submit_btn_div {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--buttons_background_color);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.edit_button_inner_update_form_div {
+  width: 380px;
+  height: 450px;
+  background-color: var(--white);
+  border-radius: 10px;
+}
+
+
+/* =============================== Delete User ================================= */
+
+.delete_button_outter_form_div {
+  padding: 1px 16px;
+  width: calc(100% - 200px);
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0, 0.9);
+  visibility: hidden;
+  opacity: 0;
+}
+
+.delete_button_inner_form_div {
+  width: 400px;
+  height: 200px;
+  background-color: var(--white);
+  border-radius: 5%;
+}
+
+.delete_button_heading_div {
+  width: 100%;
+  height: 30%;
+  background-color: var(--heading_background_color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.delete_button_heading_div h2 {
+  color: var(--heading_color);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 25px;
+}
+
+.delete_button_form {
+  width: 100%;
+  height: calc(100% - 30%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete_button_form_input_div {
+  width: 100%;
+  height: calc(100% - 30%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete_button_form_input_div input {
+  width: 80%;
+  height: 30px;
+  border: none;
+  outline: none;
+  padding-left: 5px;
+  margin: 20px 0px;
+  letter-spacing: 1px;
+  border-bottom: 2px solid var(--input_bottom_border_color_not_focus);
+  color: #000;
+  font-size: 18px;
+  transition: border-bottom-color .4s;
+}
+
+.delete_button_form_input_div input:focus {
+  border-bottom-color: var(--input_bottom_border_color_focus);
+}
+
+.delete_button_form_submit_btn_div {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--buttons_background_color);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}

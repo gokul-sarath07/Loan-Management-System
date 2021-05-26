@@ -93,6 +93,11 @@ div.content {
   justify-content: space-around;
 }
 
+td {
+  text-align: center;
+  vertical-align: middle;
+}
+
 .info_block {
   width: 215px;
   height: 150px;
@@ -104,7 +109,7 @@ div.content {
   border-radius: 5px;
 }
 
-.loan_info, .payment_info, .borrowers_info, .loan_plans_info, .loan_types_info, .users_info {
+.loan_info, .payment_info, .borrowers_info, .loan_plans_info, .loan_types_info {
   background-color: #fff;
   width: 1200px;
   height: 550px;
@@ -138,12 +143,12 @@ div.content {
   cursor: pointer;
 }
 
-.loans_table, .payment_table, .borrowers_table, .loan_plans_table, .loan_types_table, .users_table, th, td {
+.loans_table, .payment_table, .borrowers_table, .loan_plans_table, .loan_types_table {
   border: 1px solid #000000;
   border-spacing: 0px;
 }
 
-.loans_table_div, .payment_table_div, .borrowers_table_div, .loan_plans_table_div, .loan_types_table_div, .users_table_div {
+.loans_table_div, .payment_table_div, .borrowers_table_div, .loan_plans_table_div, .loan_types_table_div {
   width: 100%;
   height: calc(100% - 70px);
   background-color: #f1f1f1;
@@ -152,17 +157,17 @@ div.content {
   overflow: auto;
 }
 
-.loans_table th, .payment_table th, .borrowers_table th, .loan_plans_table th, .loan_types_table th, .users_table th {
+.loans_table th, .payment_table th, .borrowers_table th, .loan_plans_table th, .loan_types_table th {
   padding: 20px;
   text-align: center;
   letter-spacing: 1px;
 }
 
-.loans_table tr, .payment_table tr, .borrowers_table tr, .loan_plans_table tr, .loan_types_table tr, .users_table tr{
+.loans_table tr, .payment_table tr, .borrowers_table tr, .loan_plans_table tr, .loan_types_table tr {
   height: 65px;
 }
 
-.loans_table, .payment_table, .borrowers_table, .loan_plans_table, .loan_types_table, .users_table {
+.loans_table, .payment_table, .borrowers_table, .loan_plans_table, .loan_types_table {
   width: 100%;
 }
 
@@ -192,6 +197,8 @@ div.content {
   opacity: 0;
 }
 
+
+
 .loan_plans_form_div, .loan_types_form_div {
   width: 380px;
   height: 450px;
@@ -204,7 +211,7 @@ div.content {
   height: 14%;
   background-color: #31353E;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;

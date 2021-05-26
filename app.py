@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for, redirect, request
 from flask_login import LoginManager, login_required, current_user, login_user, logout_user
 
-from db import get_user, save_user, get_registered_users
+from db import get_user, save_user, get_registered_users, delete_user, update_user
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "secret_pass_code"
@@ -67,8 +67,50 @@ def loan_types_view():
 @app.route("/home/users/", methods=['GET', 'POST'])
 @login_required
 def users_view():
-    members = get_registered_users()
-    return render_template("users_page.html", members=members)
+	if request.method == 'POST':
+		first_name = request.form.get('first_name')
+		last_name = request.form.get('last_name')
+		email = request.form.get('email')
+		password = request.form.get('password')
+		has_permission = True if request.form.get('has_permission') != None else False
+		try:
+			save_user(first_name, last_name, email, password, has_permission)
+		except Exception as e:
+			print("[EXCEPTION] ", e)
+	members = get_registered_users()
+	return render_template("users_page.html", members=members)
+
+@app.route("/home/users/edit", methods=['GET', 'POST'])
+def edit_member():
+	if request.method == 'POST':
+		email = request.form.get('edit_button_email_input')
+		current_member = get_user(email)
+		if current_member:
+			return render_template("users_page_update.html", current_member=current_member)
+		else:
+			print("Email Adress does not exist!")
+	return redirect(url_for('users_view'))
+
+@app.route("/home/users/update", methods=['GET', 'POST'])
+def update_member():
+	if request.method == 'POST':
+		first_name = request.form.get('first_name')
+		last_name = request.form.get('last_name')
+		email = request.form.get('email')
+		password = request.form.get('password')
+		has_permission = True if request.form.get('has_permission') != None else False
+		update_user(first_name, last_name, email, password, has_permission)
+	return redirect(url_for('users_view'))
+
+
+@app.route("/delete-user", methods=['GET', 'POST'])
+def remove_a_user():
+	if request.method == 'POST':
+		email = request.form.get('delete_button_email_input')
+		if get_user(email):
+			delete_user(email)
+			return redirect(url_for('users_view'))
+	return redirect(url_for('users_view'))
 
 @login_manager.user_loader
 def load_user(email):

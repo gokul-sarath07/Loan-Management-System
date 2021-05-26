@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block css_link %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='users_page.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="edit_button_outter_update_form_div">
+  <div class="edit_button_inner_update_form_div">
+    <div class="edit_button_heading_update_div">
+      <h2>Update User</h2>
+    </div>
+    <form class="edit_button_update_form" action="/home/users/update" method="POST">
+      <div class="edit_button_form_input_update_div">
+        <input name="first_name" type="text" value="{{ current_member.first_name }}" required>
+        <input name="last_name" type="text" value="{{ current_member.last_name }}" required>
+        <input name="email" type="email" value="{{ current_member.email }}" readonly>
+        <input name="password" type="password" placeholder="New Password" required>
+        <span>Give admin permissions: <input name="has_permission" type="checkbox" {% if current_member.has_permission %} checked {% endif %}></span>
+      </div>
+      <div class="edit_button_form_update_submit_btn_div">
+        <button class="btn btn-outline-success edit_button_update_update_btn" type="submit" name="button">Update</button>
+        <button onclick="window.location.href='/home/users/'" class="btn btn-outline-secondary edit_button_update_cancel_btn" type="button" name="button">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

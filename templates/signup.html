@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Sign Up | Loan Management System</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='login_signup.css') }}">
+  </head>
+  <body>
+    <div class="signup_container">
+      <div class="signup_form_div">
+        <div class="signup_heading">
+          <h2>Sign Up</h2>
+        </div>
+        <div class="signup_message">
+          <p>{{ message }}</p>
+        </div>
+        <form class="signup_form" action="/signup" method="POST">
+          <div class="signup_form_input_btns_div">
+            <input type="text" name="first_name" placeholder="First Name" required>
+            <input type="text" name="last_name" placeholder="Last Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button class="btn btn-primary btn-lg" type="submit" name="button">Sign Up</button>
+          </div>
+          <div class="signup_form_sign_up_link_div">
+            <p>Already have an account? <a href="/">Login</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

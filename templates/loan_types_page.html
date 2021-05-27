@@ -1,54 +1,128 @@
 {% extends "base.html" %}
 
+{% block css_link %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='loan_types_page.css') }}">
+{% endblock %}
 
 {% block content %}
+
+  <!-- ============================= Loan Type Window ============================= -->
+
   <div class="loan_types_info">
     <div class="heading_and_button">
       <h2>Loan Types List</h2>
-      <button class="add_loan_type" type="button" name="button">Add Loan Type</button>
+      {% if current_user.has_permission %}
+        <div class="buttons_div">
+          <button class="add_button" type="button" name="add_button">
+            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+          </button>
+          <button class="delete_button" type="button" name="delete_button">
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+          </button>
+        </div>
+      {% endif %}
     </div>
 
+    <!-- ============================= Loan Type Table ============================= -->
+
     <div class="loan_types_table_div">
-      <table class="loan_types_table">
+      <table class="loan_types_table table table-bordered">
         <tr>
           <th>#</th>
           <th>Loan Type</th>
-          <th>Action</th>
+          {% if current_user.has_permission %}
+            <th>ID</th>
+          {% endif %}
         </tr>
+        {% for loan_type in loan_types %}
+          <tr>
+            <td class="index">{{ loop.index }}</td>
+            <td class="other_col">
+              <div>
+                <p>Type: <b>{{ loan_type.type }}</b></p>
+                <p>Description: <b>{{ loan_type.description }}</b></p>
+              </div>
+            </td>
+            {% if current_user.has_permission %}
+              <td>{{ loan_type._id }}</td>
+            {% endif %}
+          </tr>
+        {% endfor %}
       </table>
     </div>
   </div>
 
-  <div class="loan_types_form_container">
-    <div class="loan_types_form_div">
-      <div class="loan_types_form_heading">
+
+  <!-- ============================= Add Loan Type ============================= -->
+
+  <div class="loan_types_form_outter_div">
+    <div class="loan_types_form_inner_div">
+      <div class="loan_types_form_heading_div">
         <h2>Add Loan Type</h2>
       </div>
-
-      <div class="loan_types_form_inner_div">
-        <form class="loan_types_form">
-
-          <div class="loan_types_div">
-            <label for="loan_types_input">Type</label>
-            <input id="loan_types_input" type="text">
-          </div>
-
-          <div class="loan_types_description_input_div">
-            <label for="loan_types_description_input">Description</label>
-            <input id="loan_types_description_input" type="text">
-          </div>
-
-        </form>
-      </div>
-
-      <div class="loan_types_form_buttons">
-        <button type="submit" name="button">Save</button>
-        <button class="loan_types_form_cancel_btn" type="button" name="button">Cancel</button>
-      </div>
+      <form class="loan_types_form" action="/home/loan_types/" method="POST">
+        <div class="loan_types_form_input_div">
+          <input class="loan_types_input" name="loan_type" type="text" placeholder="Loan Type Here" required>
+          <textarea class="loan_types_input_description" name="description" rows="5" placeholder="Description Here" required></textarea>
+        </div>
+        <div class="loan_types_form_submit_btn_div">
+          <button class="btn btn-outline-success" type="submit" name="button">Save</button>
+          <button class="btn btn-outline-secondary loan_types_form_cancel_btn" type="button" name="button">Cancel</button>
+        </div>
+      </form>
     </div>
   </div>
+
+  <!-- ============================= Delete Loan Plan ============================= -->
+
+  <div class="delete_button_outter_form_div">
+    <div class="delete_button_inner_form_div">
+      <div class="delete_button_heading_div">
+        <h2>Delete loan type with id</h2>
+      </div>
+      <form class="delete_button_form" action="/delete-loan-type" method="POST">
+        <div class="delete_button_form_input_div">
+          <input class="loan_id" type="text" name="delete_button_id_input" placeholder="Loan Type ID Here" required>
+        </div>
+        <div class="delete_button_form_submit_btn_div">
+          <button class="btn btn-outline-danger delete_button_delete_btn" type="submit" name="button">Delete</button>
+          <button class="btn btn-outline-secondary delete_button_cancel_btn" type="button" name="button">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================= Javascript ============================= -->
+
+
+  <script type="text/javascript">
+
+  // ============================ Add Button Scripts ============================
+
+    document.querySelector('.add_button').onclick = () => {
+      document.querySelector('.loan_types_form_outter_div').style.cssText = "opacity: 1; visibility: visible";
+      document.querySelector('.loan_types_input').value = '';
+      document.querySelector('.loan_types_input_description').value = '';
+    }
+
+    document.querySelector('.loan_types_form_cancel_btn').onclick = () => {
+      document.querySelector('.loan_types_form_outter_div').style.cssText = "opacity: 0; visibility: hidden";
+    }
+
+    // ============================ Delete Button Scripts ============================
+
+    document.querySelector('.delete_button').onclick = () => {
+      document.querySelector('.delete_button_outter_form_div').style.cssText = "opacity: 1; visibility: visible";
+      document.querySelector('.loan_id').value = '';
+    }
+
+    document.querySelector('.delete_button_cancel_btn').onclick = () => {
+      document.querySelector('.delete_button_outter_form_div').style.cssText = "opacity: 0; visibility: hidden";
+    }
+  </script>
+
 {% endblock %}
 
-{% block script_link %}
+<!-- {% block script_link %}
   <script type="text/javascript" src="{{ url_for('static', filename='loan_types_page.js') }}"></script>
-{% endblock %}
+{% endblock %} -->

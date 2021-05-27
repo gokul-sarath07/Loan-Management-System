@@ -39,11 +39,6 @@
   cursor: pointer;
 }
 
-.users_table, th, td {
-  border: 1px solid #000000;
-  border-spacing: 0px;
-}
-
 .users_table_div {
   width: 100%;
   height: calc(100% - 70px);
@@ -53,18 +48,9 @@
   overflow: auto;
 }
 
-.users_table th {
-  padding: 20px;
+th, td {
   text-align: center;
-  letter-spacing: 1px;
-}
-
-.users_table tr{
-  height: 65px;
-}
-
-.users_table {
-  width: 100%;
+  vertical-align: middle;
 }
 
 

@@ -2,9 +2,11 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Login</title>
+    <title>Login | Loan Management System</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- CSS Link -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login_signup.css') }}">
   </head>
   <body>
     <div class="login_container">
@@ -13,13 +15,16 @@
           <h2>Login</h2>
         </div>
         <div class="login_message">
-          {{ message }}
+          <p>{{ message }}</p>
         </div>
         <form class="login_form" action="/" method="POST">
-          <input type="email" name="email" placeholder="Email Here">
-          <input type="password" name="password" placeholder="Password Here">
-          <div class="login_submin_btn_div">
-            <button type="submit" name="button">Login</button>
+          <div class="login_form_input_btns_div">
+            <input type="email" name="email" placeholder="Email Here" required>
+            <input type="password" name="password" placeholder="Password Here" required>
+            <button class="btn btn-primary btn-lg" type="submit" name="button">Login</button>
+          </div>
+          <div class="login_form_sign_up_link_div">
+            <p>Don't have an account? <a href="/signup">Sign Up</a></p>
           </div>
         </form>
       </div>

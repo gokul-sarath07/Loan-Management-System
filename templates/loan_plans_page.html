@@ -1,57 +1,133 @@
 {% extends "base.html" %}
 
+{% block css_link %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='loan_plans_page.css') }}">
+{% endblock %}
 
 {% block content %}
+
+  <!-- ============================= Loan Plan Window ============================= -->
+
   <div class="loan_plans_info">
     <div class="heading_and_button">
       <h2>Loan Plans List</h2>
-      <button class="add_loan_plan" type="button" name="button">Add Loan Plan</button>
+      {% if current_user.has_permission %}
+        <div class="buttons_div">
+          <button class="add_button" type="button" name="add_button">
+            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+          </button>
+          <button class="delete_button" type="button" name="delete_button">
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+          </button>
+        </div>
+      {% endif %}
     </div>
 
+  <!-- ============================= Loan Plan Table ============================= -->
+
     <div class="loan_plans_table_div">
-      <table class="loan_plans_table">
+      <table class="loan_plans_table table table-bordered">
         <tr>
           <th>#</th>
-          <th>Plan</th>
-          <th>Action</th>
+          <th>Plans</th>
+          {% if current_user.has_permission %}
+            <th>ID</th>
+          {% endif %}
         </tr>
+        {% for loan_plan in loan_plans %}
+          <tr>
+            <td class="index">{{ loop.index }}</td>
+            <td class="other_col">
+              <div>
+                <p>Years: <b>{{ loan_plan.years }}</b></p>
+                <p>Months: <b>{{ loan_plan.months }}</b></p>
+                <p>Interest: <b>{{ loan_plan.interest }}%</b></p>
+                <p>Monthy Over Due Penalty: <b>{{ loan_plan.penalty }}%</b></p>
+              </div>
+            </td>
+            {% if current_user.has_permission %}
+              <td>{{ loan_plan._id }}</td>
+            {% endif %}
+          </tr>
+        {% endfor %}
       </table>
     </div>
   </div>
 
-  <div class="loan_plans_form_container">
-    <div class="loan_plans_form_div">
-      <div class="loan_plans_form_heading">
+
+  <!-- ============================= Add Loan Plan ============================= -->
+
+  <div class="loan_plans_form_outter_div">
+    <div class="loan_plans_form_inner_div">
+      <div class="loan_plans_form_heading_div">
         <h2>Add Loan Plan</h2>
       </div>
-
-      <div class="loan_plans_form_inner_div">
-        <form class="loan_plans_form">
-          <div class="loan_plan_input_div">
-            <label for="loan_plan_input">Plan (Months)</label>
-            <input id="loan_plan_input" type="text">
-          </div>
-
-          <div class="loan_plan_interest_input_div">
-            <label for="loan_plan_interest_input">Interest (%)</label>
-            <input id="loan_plan_interest_input" type="text">
-          </div>
-
-          <div class="loan_plan_monthly_over_due_penalty_input_div">
-            <label for="loan_plan_monthly_over_due_penalty_input">Monthly Over Due's Penalty (%)</label>
-            <input id="loan_plan_monthly_over_due_penalty_input" type="text">
-          </div>
-        </form>
-      </div>
-
-      <div class="loan_plan_form_buttons">
-        <button type="submit" name="button">Save</button>
-        <button class="loan_plan_form_cancel_btn" type="button" name="button">Cancel</button>
-      </div>
+      <form class="loan_plans_form" action="/home/loan_plans/" method="POST">
+        <div class="loan_plans_form_input_div">
+          <input class="plan" name="plan" type="text" placeholder="Plan (Months)">
+          <input class="interest" name="interest" type="text" placeholder="Interest (%)">
+          <input class="penalty" name="penalty" type="text" placeholder="Monthly Over Due's Penalty (%)">
+        </div>
+        <div class="loan_plan_form_submit_btn_div">
+          <button class="btn btn-outline-success" type="submit" name="button">Save</button>
+          <button class="btn btn-outline-secondary loan_plan_form_cancel_btn" type="button" name="button">Cancel</button>
+        </div>
+      </form>
     </div>
   </div>
+
+  <!-- ============================= Delete Loan Plan ============================= -->
+
+  <div class="delete_button_outter_form_div">
+    <div class="delete_button_inner_form_div">
+      <div class="delete_button_heading_div">
+        <h2>Delete loan plan with id</h2>
+      </div>
+      <form class="delete_button_form" action="/delete-loan-plan" method="POST">
+        <div class="delete_button_form_input_div">
+          <input class="plan_id" type="text" name="delete_button_id_input" placeholder="Loan Plan ID Here" required>
+        </div>
+        <div class="delete_button_form_submit_btn_div">
+          <button class="btn btn-outline-danger delete_button_delete_btn" type="submit" name="button">Delete</button>
+          <button class="btn btn-outline-secondary delete_button_cancel_btn" type="button" name="button">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ============================= Javascript ============================= -->
+
+  <script type="text/javascript">
+
+    // ============================ Add Button Scripts ============================
+
+    document.querySelector('.add_button').onclick = () => {
+      document.querySelector('.loan_plans_form_outter_div').style.cssText = "opacity: 1; visibility: visible";
+      document.querySelector('.plan').value = '';
+      document.querySelector('.interest').value = '';
+      document.querySelector('.penalty').value = '';
+    }
+
+    document.querySelector('.loan_plan_form_cancel_btn').onclick = () => {
+      document.querySelector('.loan_plans_form_outter_div').style.cssText = "opacity: 0; visibility: hidden";
+    }
+
+    // ============================ Delete Button Scripts ============================
+
+    document.querySelector('.delete_button').onclick = () => {
+      document.querySelector('.delete_button_outter_form_div').style.cssText = "opacity: 1; visibility: visible";
+      document.querySelector('.plan_id').value = '';
+    }
+
+    document.querySelector('.delete_button_cancel_btn').onclick = () => {
+      document.querySelector('.delete_button_outter_form_div').style.cssText = "opacity: 0; visibility: hidden";
+    }
+  </script>
+
 {% endblock %}
 
-{% block script_link %}
-  <script type="text/javascript" src="{{ url_for('static', filename='loan_plans_page.js') }}"></script>
-{% endblock %}
+
+<!-- {% block script_link %}
+
+{% endblock %} -->

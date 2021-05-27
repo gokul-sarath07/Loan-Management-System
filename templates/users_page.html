@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block content %}
+
+  <!-- ============================= User Window ============================= -->
+
   <div class="users_info">
     <div class="heading_and_button">
       <h2>Users List</h2>
@@ -21,8 +24,10 @@
       </div>
     </div>
 
+    <!-- ============================= User Table ============================= -->
+
     <div class="users_table_div">
-      <table class="users_table">
+      <table class="users_table table table-bordered">
         <tr>
           <th>#</th>
           <th>Name</th>
@@ -41,6 +46,8 @@
     </div>
   </div>
 
+  <!-- ============================= Add User ============================= -->
+
   <div class="add_button_outter_form_div">
     <div class="add_button_inner_form_div">
       <div class="add_button_heading_div">
@@ -48,10 +55,10 @@
       </div>
       <form class="add_button_form" action="/home/users/" method="POST">
         <div class="add_button_form_input_div">
-          <input name="first_name" type="text" placeholder="First Name" required>
-          <input name="last_name" type="text" placeholder="Last Name" required>
-          <input name="email" type="email" placeholder="Email" required>
-          <input name="password" type="password" placeholder="New Password" required>
+          <input class="add_button_first_name" name="first_name" type="text" placeholder="First Name" required>
+          <input class="add_button_last_name" name="last_name" type="text" placeholder="Last Name" required>
+          <input class="add_button_email" name="email" type="email" placeholder="Email" required>
+          <input class="add_button_password" name="password" type="password" placeholder="New Password" required>
           <span>Give admin permissions: <input name="has_permission" type="checkbox"></span>
         </div>
         <div class="add_button_form_submit_btn_div">
@@ -63,6 +70,8 @@
     </div>
   </div>
 
+  <!-- ============================= Edit User ============================= -->
+
   <div class="edit_button_outter_form_div">
     <div class="edit_button_inner_email_form_div">
       <div class="edit_button_heading_email_div">
@@ -70,7 +79,7 @@
       </div>
       <form class="edit_button_email_form" action="/home/users/edit" method="POST">
         <div class="edit_button_form_input_email_div">
-          <input type="email" name="edit_button_email_input" placeholder="Email Here" required>
+          <input class="edit_button_email" type="email" name="edit_button_email_input" placeholder="Email Here" required>
         </div>
         <div class="edit_button_form_email_submit_btn_div">
           <button class="btn btn-outline-info edit_button_email_continue_btn" type="submit" name="button">Continue</button>
@@ -80,6 +89,7 @@
     </div>
   </div>
 
+  <!-- ============================= Delete User ============================= -->
 
   <div class="delete_button_outter_form_div">
     <div class="delete_button_inner_form_div">
@@ -88,7 +98,7 @@
       </div>
       <form class="delete_button_form" action="/delete-user" method="POST">
         <div class="delete_button_form_input_div">
-          <input type="email" name="delete_button_email_input" placeholder="Email Here" required>
+          <input class="delete_button_email" type="email" name="delete_button_email_input" placeholder="Email Here" required>
         </div>
         <div class="delete_button_form_submit_btn_div">
           <button class="btn btn-outline-danger delete_button_delete_btn" type="submit" name="button">Delete</button>
@@ -98,11 +108,18 @@
     </div>
   </div>
 
+  <!-- ============================= Javascript ============================= -->
+
   <script type="text/javascript">
 
   // ============================ Add Button Scripts ============================
+
     document.querySelector('.add_button').onclick = () => {
       document.querySelector('.add_button_outter_form_div').style.cssText = "opacity: 1; visibility: visible";
+      document.querySelector('.add_button_first_name').value = '';
+      document.querySelector('.add_button_last_name').value = '';
+      document.querySelector('.add_button_email').value = '';
+      document.querySelector('.add_button_password').value = '';
     }
 
     document.querySelector('.add_button_cancel_btn', '.add_button_save_btn').onclick = () => {
@@ -110,8 +127,10 @@
     }
 
   // ============================ Delete Button Scripts ============================
+
     document.querySelector('.delete_button').onclick = () => {
       document.querySelector('.delete_button_outter_form_div').style.cssText = "opacity: 1; visibility: visible";
+      document.querySelector('.delete_button_email').value = '';
     }
 
     document.querySelector('.delete_button_cancel_btn', '.delete_button_delete_btn').onclick = () => {
@@ -119,19 +138,15 @@
     }
 
   // ============================ Edit Button Scripts ============================
+
     document.querySelector('.edit_button').onclick = () => {
       document.querySelector('.edit_button_outter_form_div').style.cssText = "opacity: 1; visibility: visible";
-      document.querySelector('.edit_button_form_input_email_div input').value = '';
+      document.querySelector('.edit_button_email').value = '';
     }
 
     document.querySelector('.edit_button_email_cancel_btn').onclick = () => {
       document.querySelector('.edit_button_outter_form_div').style.cssText = "opacity: 0; visibility: hidden";
     }
-
-
-
-
-
 
   </script>
 {% endblock %}

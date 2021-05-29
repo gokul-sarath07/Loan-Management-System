@@ -1,24 +1,163 @@
 {% extends "base.html" %}
 
+{% block css_link %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='loans_page.css') }}">
+{% endblock %}
 
 {% block content %}
+
+  <!-- ============================= Loans Window ============================= -->
+
   <div class="loan_info">
     <div class="heading_and_button">
       <h2>Loans List</h2>
-      <button type="button" name="button">Create New Application</button>
+      <div class="buttons_div">
+        <button class="add_button" type="button" name="add_button">
+          <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+        </button>
+      </div>
     </div>
 
+  <!-- ============================= Loans Table ============================= -->
+
     <div class="loans_table_div">
-      <table class="loans_table">
+      <table class="loans_table table table-bordered">
         <tr>
           <th>#</th>
           <th>Borrower</th>
           <th>Loan Details</th>
           <th>Next Payment Details</th>
           <th>Status</th>
-          <th>Action</th>
         </tr>
       </table>
     </div>
   </div>
+
+  <!-- ============================= Add Loans ============================= -->
+
+  <div class="loans_form_outter_div">
+    <div class="loans_form_inner_div">
+      <div class="loans_form_heading_div">
+        <h2>Add Loan</h2>
+      </div>
+      <form class="loans_form" action="/home/loans/" method="POST">
+        <div class="loans_form_input_div">
+
+          <div class="loans_borrowers_loan_type_div">
+            <input list="loans_borrowers_input" class="loans_borrowers_input" name="loans_borrowers_input" placeholder="Select Borrower" required>
+            <datalist id="loans_borrowers_input">
+              {% for borrower in borrowers %}
+                <option value="{{ borrower.first_name + " " + borrower.last_name + " | " + "Tax-ID: " + borrower.tax_id }}">
+              {% endfor %}
+            </datalist>
+
+            <input list="loans_loan_type_input" class="loans_loan_type_input" name="loans_loan_type_input" placeholder="Select Loan Type" required>
+            <datalist id="loans_loan_type_input">
+              {% for loan_type in loan_types %}
+                <option value="{{ loan_type.type }}">
+              {% endfor %}
+            </datalist>
+          </div>
+
+          <div class="loans_loan_plans_amount_div">
+            <div class="loans_loan_plans_div">
+              <input list="loans_loan_plan_input" class="loans_loan_plan_input" name="loans_loan_plan_input" placeholder="Select Loan Plan" required>
+              <datalist id="loans_loan_plan_input">
+                {% for loan_plan in loan_plans %}
+                  <option value="{{ ((loan_plan.years * 12) + loan_plan.months)|string + " Month(s)" + " [" + loan_plan.interest|string + "%, " + loan_plan.penalty|string + "%]" }}">
+                {% endfor %}
+              </datalist>
+              <small>Months [ Interest (%), Penalty (%) ]</small>
+            </div>
+            <input class="loans_amount_input" name="loans_amount_input" type="number" placeholder="Amount Here" required>
+          </div>
+
+          <div class="loans_purpose_div">
+            <textarea class="loans_purpose_input" name="loans_purpose_input" rows="3" cols="80" placeholder="Purpose" required></textarea>
+          </div>
+
+          <div class="calculated_values_btn_div">
+            <div class="calculated_values_div">
+              <table class="calculated_values_table table">
+                <tr>
+                  <th>Total Payable</th>
+                  <th>Monthly Payable</th>
+                  <th>Penalty</th>
+                </tr>
+                <tr>
+                  <td class="total_payable_value">0.00</td>
+                  <td class="monthly_payable_value">0.00</td>
+                  <td class="penalty_value">0.00</td>
+                </tr>
+              </table>
+            </div>
+            <div class="calculated_calculate_btn">
+              <button class="calculate_btn btn btn-outline-info" type="button" name="button">Calculate Amounts</button>
+            </div>
+          </div>
+
+        </div>
+        <div class="loans_form_submit_btn_div">
+          <button class="btn btn-outline-success loans_form_save_btn" type="submit" name="button">Save</button>
+          <button class="btn btn-outline-secondary loans_form_cancel_btn" type="button" name="button">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================= Javascript ============================= -->
+
+  <script type="text/javascript">
+
+  // ============================ Add Button Scripts ============================
+
+    document.querySelector('.add_button').onclick = () => {
+      document.querySelector('.loans_form_outter_div').style.cssText = "opacity: 1; visibility: visible";
+      document.querySelector('.loans_borrowers_input').value = '';
+      document.querySelector('.loans_loan_type_input').value = '';
+      document.querySelector('.loans_loan_plan_input').value = '';
+      document.querySelector('.loans_amount_input').value = '';
+      document.querySelector('.loans_purpose_input').value = '';
+      document.querySelector('.total_payable_value').innerHTML = "0.00";
+      document.querySelector('.monthly_payable_value').innerHTML = "0.00";
+      document.querySelector('.penalty_value').innerHTML = "0.00";
+    }
+
+    document.querySelector('.loans_form_cancel_btn').onclick = () => {
+      document.querySelector('.loans_form_outter_div').style.cssText = "opacity: 0; visibility: hidden";
+    }
+
+    // ============================ Delete Button Scripts ============================
+
+    // document.querySelector('.delete_button').onclick = () => {
+    //   document.querySelector('.delete_button_outter_form_div').style.cssText = "opacity: 1; visibility: visible";
+    //   document.querySelector('.delete_button_email').value = '';
+    // }
+    //
+    // document.querySelector('.delete_button_cancel_btn').onclick = () => {
+    //   document.querySelector('.delete_button_outter_form_div').style.cssText = "opacity: 0; visibility: hidden";
+    // }
+
+    document.querySelector('.calculate_btn').onclick = () => {
+      let amount = document.querySelector('.loans_amount_input').value;
+      let plan = document.querySelector('.loans_loan_plan_input').value;
+      if (amount !== '' && plan !== '') {
+        calculate_values(amount, plan);
+      }
+    }
+
+    function calculate_values(amount, plan) {
+      const months = parseInt(plan.split(" ")[0]);
+      const interest = parseFloat(plan.split(" ")[2].slice(1, 4));
+      const penalty = parseFloat(plan.split(" ")[3].slice(0, 3));
+      const calc_total_payable = parseFloat((parseInt(amount) + (parseInt(amount) * (interest / 100))).toFixed(2));
+      const calc_monthly_payable = parseFloat((calc_total_payable / months).toFixed(2));
+      const calc_penalty = parseFloat((calc_monthly_payable * (penalty / 100)).toFixed(2));
+      document.querySelector('.total_payable_value').innerHTML = calc_total_payable;
+      document.querySelector('.monthly_payable_value').innerHTML = calc_monthly_payable;
+      document.querySelector('.penalty_value').innerHTML = calc_penalty;
+    }
+
+
+  </script>
 {% endblock %}

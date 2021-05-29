@@ -1,12 +1,13 @@
 from werkzeug.security import check_password_hash
 
 class User:
-    def __init__(self, email, first_name, last_name, password, has_permission):
+    def __init__(self, email, first_name, last_name, password, has_permission, is_admin):
         self.email = email
         self.first_name = first_name
         self.last_name = last_name
         self.password = password
         self.has_permission = has_permission
+        self.is_admin = is_admin
 
     @staticmethod
     def is_authenticated(self):
@@ -25,6 +26,9 @@ class User:
 
     def check_permission(self):
         return self.has_permission
+
+    def check_admin_status(self):
+        return self.is_admin
 
     def check_password(self, password_not_hashed):
         return check_password_hash(self.password, password_not_hashed)

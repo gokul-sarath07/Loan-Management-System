@@ -32,14 +32,16 @@
           <th>#</th>
           <th>Name</th>
           <th>Email</th>
-          <th>Date Joined</th>
+          <th>Created Date</th>
+          <th>Updated Date</th>
         </tr>
         {% for member in members %}
           <tr>
             <td>{{ loop.index }}</td>
             <td>{{ member.first_name + ' ' + member.last_name }}</td>
             <td>{{ member._id }}</td>
-            <td>{{ member.added_date_time }}</td>
+            <td>{{ member.date_of_creation }}</td>
+            <td>{{ member.date_of_update }}</td>
           </tr>
         {% endfor %}
       </table>
@@ -59,7 +61,10 @@
           <input class="add_button_last_name" name="last_name" type="text" placeholder="Last Name" required>
           <input class="add_button_email" name="email" type="email" placeholder="Email" required>
           <input class="add_button_password" name="password" type="password" placeholder="New Password" required>
-          <span>Give admin permissions: <input name="has_permission" type="checkbox"></span>
+          <span>Give Agent Permissions: <input name="has_permission" type="checkbox"></span>
+          {% if current_user.is_admin %}
+            <span>Give Admin Permissions: <input name="is_admin" type="checkbox"></span>
+          {% endif %}
         </div>
         <div class="add_button_form_submit_btn_div">
           <!-- <button class="users_form_save_btn" onclick="window.location.href='/home/users'" type="submit" name="button">Save</button> -->

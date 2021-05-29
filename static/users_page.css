@@ -53,50 +53,6 @@ th, td {
   vertical-align: middle;
 }
 
-
-/* =============================== Users Buttons ================================= */
-
-.edit_button, .delete_button, .add_button {
-  width: 30px;
-  height: 30px;
-  outline: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.add_button {
-  border: 1.5px solid #04AA6D;
-}
-
-.add_button i {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #04AA6D;
-}
-
-.edit_button {
-  border: 1.5px solid #2D87EA;
-}
-
-.edit_button i {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #2D87EA;
-}
-
-.delete_button {
-  border: 1.5px solid #DB474D;
-}
-
-.delete_button i {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #DB474D;
-}
-
 /* =============================== Add User ================================= */
 
 .add_button_outter_form_div {

@@ -12,23 +12,24 @@ lms_database = client.get_database('Loan-Management-System-DB')
 users_collection = lms_database.get_collection('users')
 loan_plans_collection = lms_database.get_collection('loan_plans')
 loan_types_collection = lms_database.get_collection('loan_types')
+borrowers_collection = lms_database.get_collection('borrowers')
 
 # =============================== User Related ===============================
 
-def save_user(first_name, last_name, email, password, has_permission=False):
+def save_user(first_name, last_name, email, password, has_permission=False, is_admin=False):
     password_hash = generate_password_hash(password)
-    added_date_time = datetime.now().strftime("%d-%b-%Y, %H:%M:%S")
+    date_of_creation = datetime.now().strftime("%d-%b-%Y")
     users_collection.insert_one({'_id': email, 'first_name': first_name.capitalize(),
                                             'last_name': last_name.capitalize(), 'password': password_hash,
-                                            'added_date_time': added_date_time,
-                                            'has_permission': has_permission}).inserted_id
+                                            'date_of_creation': date_of_creation, 'date_of_update': date_of_creation,
+                                            'has_permission': has_permission, 'is_admin': is_admin}).inserted_id
 
 
 def get_user(email):
     user_data = users_collection.find_one({'_id': email})
     return User(user_data['_id'], user_data['first_name'],
                 user_data['last_name'], user_data['password'],
-                user_data['has_permission']) if user_data else None
+                user_data['has_permission'], user_data['is_admin']) if user_data else None
 
 
 def get_registered_users():
@@ -39,18 +40,20 @@ def delete_user(email):
     users_collection.delete_one({'_id': email})
 
 
-def update_user(first_name, last_name, email, password, has_permission=False):
+def update_user(first_name, last_name, email, password, has_permission=False, is_admin=False):
     password_hash = generate_password_hash(password)
-    added_date_time = datetime.now().strftime("%d-%b-%Y, %H:%M:%S")
+    date_of_update = datetime.now().strftime("%d-%b-%Y")
     users_collection.update_one({'_id': email}, {'$set': {'first_name': first_name.capitalize(),
                                  'last_name': last_name.capitalize(), 'password': password_hash,
-                                 'added_date_time': added_date_time, 'has_permission': has_permission}})
+                                 'date_of_update': date_of_update, 'has_permission': has_permission,
+                                 'is_admin': is_admin}})
 
 
 # =============================== Loan Plan Related ===============================
 
 def save_loan_plan(months, years, interest, penalty):
-    loan_plans_collection.insert_one({'months': months, 'years': years, 'interest': interest, 'penalty': penalty})
+    loan_plans_collection.insert_one({'months': months, 'years': years,
+                                      'interest': interest, 'penalty': penalty})
 
 
 def get_a_loan_plan(id):
@@ -87,6 +90,25 @@ def get_all_loan_types():
 def delete_a_loan_type(id):
     loan_types_collection.delete_one({'_id': ObjectId(id)})
 
+# =============================== Borrowers Related ===============================
+
+def save_borrower(first_name, last_name, address, contact, email, tax_id):
+    borrowers_collection.insert_one({'_id': email, 'first_name': first_name.capitalize(),
+                                     'last_name': last_name.capitalize(), 'address': address,
+                                     'contact': contact, 'tax_id': tax_id})
+
+def get_all_borrowers():
+    return list(borrowers_collection.find())
+
+def get_a_borrower(email):
+    borrower = borrowers_collection.find_one({'_id': email})
+    return borrower if borrower != None else None
+
+def get_borrower_with_tax_id(tax_id):
+    return borrowers_collection.find_one({'tax_id': tax_id})
+
+def delete_a_borrower(email):
+    borrowers_collection.delete_one({'_id': email})
 
 # save_user('admin', 'admin', 'admin@gmail.com', 'admin123', True)
 # save_user('agent', 'agent', 'agent@gmail.com', 'agent123', True)

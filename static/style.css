@@ -1,5 +1,5 @@
 :root {
-  --heading_background_color: #31353E;
+  --sidebar_hover_color: #31353E;
 }
 
 * {
@@ -12,7 +12,6 @@
   width: 100%;
   height: 100vh;
 }
-
 
 /* The side navigation menu */
 .sidebar {
@@ -42,7 +41,7 @@
 
 /* Links on mouse-over */
 .sidebar a:hover:not(.active) {
-  background-color: var(--heading_background_color);
+  background-color: var(--sidebar_hover_color);
   color: white;
 }
 
@@ -53,8 +52,14 @@
     height: auto;
     position: relative;
   }
-  .sidebar a {float: left;}
-  div.content {margin-left: 0;}
+
+  .sidebar a {
+    float: left;
+  }
+
+  div.content {
+    margin-left: 0;
+  }
 }
 
 /* On screens that are less than 400px, display the bar vertically, instead of horizontally */
@@ -113,7 +118,7 @@ td {
   border-radius: 5px;
 }
 
-.loan_info, .payment_info, .borrowers_info {
+.payment_info {
   background-color: #fff;
   width: 1200px;
   height: 550px;
@@ -147,13 +152,7 @@ td {
   cursor: pointer;
 }
 
-.loans_table, .payment_table, .borrowers_table {
-  width: 100%;
-  border: 1px solid #000000;
-  border-spacing: 0px;
-}
-
-.loans_table_div, .payment_table_div, .borrowers_table_div {
+.payment_table_div {
   width: 100%;
   height: calc(100% - 70px);
   background-color: #f1f1f1;
@@ -162,12 +161,61 @@ td {
   overflow: auto;
 }
 
-.loans_table th, .payment_table th, .borrowers_table th {
+.payment_table {
+  width: 100%;
+  border: 1px solid #000000;
+  border-spacing: 0px;
+}
+
+.payment_table th {
   padding: 20px;
   text-align: center;
   letter-spacing: 1px;
 }
 
-.loans_table tr, .payment_table tr, .borrowers_table tr {
+.payment_table tr {
   height: 65px;
+}
+
+/* =============================== Users Buttons ================================= */
+
+.edit_button, .delete_button, .add_button {
+  width: 30px;
+  height: 30px;
+  outline: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add_button {
+  border: 1.5px solid #04AA6D;
+}
+
+.add_button i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #04AA6D;
+}
+
+.edit_button {
+  border: 1.5px solid #2D87EA;
+}
+
+.edit_button i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #2D87EA;
+}
+
+.delete_button {
+  border: 1.5px solid #DB474D;
+}
+
+.delete_button i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #DB474D;
 }

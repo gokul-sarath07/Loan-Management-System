@@ -1,23 +1,165 @@
 {% extends "base.html" %}
 
+{% block css_link %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='borrowers_page.css') }}">
+{% endblock %}
 
 {% block content %}
+
+  <!-- ============================= Borrowers Window ============================= -->
+
   <div class="borrowers_info">
     <div class="heading_and_button">
       <h2>Borrowers List</h2>
-      <button type="button" name="button">New Borrower</button>
+      {% if current_user.has_permission %}
+        <div class="buttons_div">
+          <button class="add_button" type="button" name="add_button">
+            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+          </button>
+          <button class="edit_button" type="button" name="edit_button">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          </button>
+          <button class="delete_button" type="button" name="delete_button">
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+          </button>
+        </div>
+      {% endif %}
     </div>
 
+    <!-- ============================= Borrowers Table ============================= -->
+
     <div class="borrowers_table_div">
-      <table class="borrowers_table">
+      <table class="borrowers_table table table-bordered">
         <tr>
           <th>#</th>
           <th>Borrower</th>
           <th>Current Loan</th>
           <th>Next Payment Schedule</th>
-          <th>Action</th>
         </tr>
+        {% for borrower in borrowers_list %}
+          <tr>
+            <td class="index">{{ loop.index }}</td>
+            <td class="other_col">
+              <div>
+                <p>Name: <b>{{ borrower.first_name + ' ' + borrower.last_name}}</b></p>
+                <p>Adress: <b>{{ borrower.address}}</b></p>
+                <p>Contact No.: <b>{{ borrower.contact}}</b></p>
+                <p>Email: <b>{{ borrower._id}}</b></p>
+                <p>Tax-ID: <b>{{ borrower.tax_id}}</b></p>
+              </div>
+            </td>
+            <td>N/A</td>
+            <td>N/A</td>
+          </tr>
+        {% endfor %}
       </table>
     </div>
   </div>
+
+  <!-- ============================= Add Borrowers ============================= -->
+
+  <div class="borrowers_form_outter_div">
+    <div class="borrowers_form_inner_div">
+      <div class="borrowers_form_heading_div">
+        <h2>Add Borrower</h2>
+      </div>
+      <form class="borrowers_form" action="/home/borrowers/" method="POST">
+        <div class="borrowers_form_input_div">
+          <div class="borrowers_names_div">
+            <input class="borrowers_first_name_input" name="first_name" type="text" placeholder="First Name Here" required>
+            <input class="borrowers_last_name_input" name="last_name" type="text" placeholder="Last Name Here" required>
+          </div>
+          <div class="borrowers_address_content_div">
+            <textarea class="borrowers_address_input" name="address" rows="3" placeholder="Address Here" required></textarea>
+            <input class="borrowers_contact_input" name="contact" type="text" placeholder="Contact No. Here" required>
+          </div>
+          <div class="borrowers_email_tax_id_div">
+            <div class="borrowers_email_small_div">
+              <input class="borrowers_email_input" name="email" type="email" placeholder="Email Here" required>
+              <small>Use account email ID here</small>
+            </div>
+            <div class="borrowers_tax_id_div">
+              <input class="borrowers_tax_id_input" name="tax_id" type="text" placeholder="Tax-ID Here" required>
+            </div>
+          </div>
+        </div>
+        <div class="borrowers_form_submit_btn_div">
+          <button class="btn btn-outline-success" type="submit" name="button">Save</button>
+          <button class="btn btn-outline-secondary borrowers_form_cancel_btn" type="button" name="button">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================= Edit User ============================= -->
+
+  <!-- <div class="edit_button_outter_form_div">
+    <div class="edit_button_inner_email_form_div">
+      <div class="edit_button_heading_email_div">
+        <h2>Edit user with email</h2>
+      </div>
+      <form class="edit_button_email_form" action="/home/users/edit" method="POST">
+        <div class="edit_button_form_input_email_div">
+          <input class="edit_button_email" type="email" name="edit_button_email_input" placeholder="Email Here" required>
+        </div>
+        <div class="edit_button_form_email_submit_btn_div">
+          <button class="btn btn-outline-info edit_button_email_continue_btn" type="submit" name="button">Continue</button>
+          <button class="btn btn-outline-secondary edit_button_email_cancel_btn" type="button" name="button">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div> -->
+
+  <!-- ============================= Delete User ============================= -->
+
+  <div class="delete_button_outter_form_div">
+    <div class="delete_button_inner_form_div">
+      <div class="delete_button_heading_div">
+        <h2>Delete Borrower with email</h2>
+      </div>
+      <form class="delete_button_form" action="/delete-borrower" method="POST">
+        <div class="delete_button_form_input_div">
+          <input class="delete_button_email" type="email" name="delete_button_email_input" placeholder="Email Here" required>
+        </div>
+        <div class="delete_button_form_submit_btn_div">
+          <button class="btn btn-outline-danger delete_button_delete_btn" type="submit" name="button">Delete</button>
+          <button class="btn btn-outline-secondary delete_button_cancel_btn" type="button" name="button">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ============================= Javascript ============================= -->
+
+  <script type="text/javascript">
+
+  // ============================ Add Button Scripts ============================
+
+    document.querySelector('.add_button').onclick = () => {
+      document.querySelector('.borrowers_form_outter_div').style.cssText = "opacity: 1; visibility: visible";
+      document.querySelector('.borrowers_first_name_input').value = '';
+      document.querySelector('.borrowers_last_name_input').value = '';
+      document.querySelector('.borrowers_address_input').value = '';
+      document.querySelector('.borrowers_contact_input').value = '';
+      document.querySelector('.borrowers_email_input').value = '';
+      document.querySelector('.borrowers_tax_id_input').value = '';
+    }
+
+    document.querySelector('.borrowers_form_cancel_btn').onclick = () => {
+      document.querySelector('.borrowers_form_outter_div').style.cssText = "opacity: 0; visibility: hidden";
+    }
+
+    // ============================ Delete Button Scripts ============================
+
+    document.querySelector('.delete_button').onclick = () => {
+      document.querySelector('.delete_button_outter_form_div').style.cssText = "opacity: 1; visibility: visible";
+      document.querySelector('.delete_button_email').value = '';
+    }
+
+    document.querySelector('.delete_button_cancel_btn').onclick = () => {
+      document.querySelector('.delete_button_outter_form_div').style.cssText = "opacity: 0; visibility: hidden";
+    }
+  </script>
+
 {% endblock %}

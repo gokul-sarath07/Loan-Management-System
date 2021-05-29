@@ -259,35 +259,3 @@
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
-
-/* =============================== Users Buttons ================================= */
-
-.add_button, .delete_button {
-  width: 30px;
-  height: 30px;
-  outline: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.add_button {
-  border: 1.5px solid #04AA6D;
-}
-
-.add_button i {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #04AA6D;
-}
-
-.delete_button {
-  border: 1.5px solid #DB474D;
-}
-
-.delete_button i {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #DB474D;
-}

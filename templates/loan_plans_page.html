@@ -64,9 +64,9 @@
       </div>
       <form class="loan_plans_form" action="/home/loan_plans/" method="POST">
         <div class="loan_plans_form_input_div">
-          <input class="plan" name="plan" type="text" placeholder="Plan (Months)">
-          <input class="interest" name="interest" type="text" placeholder="Interest (%)">
-          <input class="penalty" name="penalty" type="text" placeholder="Monthly Over Due's Penalty (%)">
+          <input class="plan" name="plan" type="number" min="1" placeholder="Plan (Months)">
+          <input class="interest" name="interest" type="number" min="1" step="0.1" placeholder="Interest (%)">
+          <input class="penalty" name="penalty" type="number" min="1" step="0.1" placeholder="Monthly Over Due's Penalty (%)">
         </div>
         <div class="loan_plan_form_submit_btn_div">
           <button class="btn btn-outline-success" type="submit" name="button">Save</button>

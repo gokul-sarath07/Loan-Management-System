@@ -16,7 +16,10 @@
         <input name="last_name" type="text" value="{{ current_member.last_name }}" required>
         <input name="email" type="email" value="{{ current_member.email }}" readonly>
         <input name="password" type="password" placeholder="New Password" required>
-        <span>Give admin permissions: <input name="has_permission" type="checkbox" {% if current_member.has_permission %} checked {% endif %}></span>
+        <span>Give Agent Permissions: <input name="has_permission" type="checkbox" {% if current_member.has_permission %} checked {% endif %}></span>
+        {% if current_user.is_admin %}
+          <span>Give Admin Permissions: <input name="is_admin" type="checkbox" {% if current_member.is_admin %} checked {% endif %}></span>
+        {% endif %}
       </div>
       <div class="edit_button_form_update_submit_btn_div">
         <button class="btn btn-outline-success edit_button_update_update_btn" type="submit" name="button">Update</button>
